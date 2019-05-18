@@ -7,6 +7,7 @@ from __future__ import print_function
 import re
 import string
 import argparse
+import json
 
 
 __author__ = ""
@@ -117,6 +118,15 @@ def sanitize(text):
     """
 
     # YOUR CODE GOES BELOW:
+    step1 = re.sub('\s', ' ', text)
+    print(step1)
+
+
+
+    parsed_text = ''
+    unigrams = ''
+    bigrams = ''
+    trigrams = ''
 
     return [parsed_text, unigrams, bigrams, trigrams]
 
@@ -133,3 +143,18 @@ if __name__ == "__main__":
 
     # We are "requiring" your write a main function so you can
     # debug your code. It will not be graded.
+    parser = argparse.ArgumentParser(description='cleantext.py takes in a json file containing comments of users '
+                                                 , formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('filename',
+                        help='comment file in json format')
+    args = parser.parse_args()
+    input_fn = args.filename
+    print(input_fn)
+    with open(input_fn) as json_file:
+        lines = json_file.readlines()
+        for line in lines:
+            print(line)
+            data = json.loads(line)
+            print(data['body'])
+            print('**************************')
+            returned_list = sanitize(data['body'])

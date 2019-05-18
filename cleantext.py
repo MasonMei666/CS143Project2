@@ -106,6 +106,8 @@ _CONTRACTIONS = {
     "youve": "you've"
 }
 
+punctuations = string.punctuation
+
 # You may need to write regular expressions.
 
 def sanitize(text):
@@ -117,16 +119,45 @@ def sanitize(text):
     4. The trigrams
     """
 
+
     # YOUR CODE GOES BELOW:
-    step1 = re.sub('\s', ' ', text)
-    print(step1)
+    text = re.sub('\s', ' ', text)
+    # print(text)
 
+    # remove links and subreddits
+    text = re.sub(r'[\(]?http\S+[\)]?|][\(].*?[\)]', '', text, re.UNICODE)
+    # print(text)
 
+    # split external punctuations and remove
+    text = re.findall(r"\$\d+(?:\,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?|\🙄(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@]+|[.!?,;:]",text, re.UNICODE)
+    # print(text)
+    # convert uppercase to lower case
+    text = [word.lower() for word in text]
+    # print(text)
+
+    # remove punctuation endings
 
     parsed_text = ''
     unigrams = ''
     bigrams = ''
     trigrams = ''
+    for t in text:
+        parsed_text += t+' '
+        unigrams += t + ' ' if t not in punctuations else ''
+
+    for i in range(len(text) -1):
+        if text[i] not in punctuations and text[i+1] not in punctuations:
+            bigrams += text[i] + '_' + text[i+1] + ' '
+
+    for i in range(len(text)-2):
+        if text[i] not in punctuations and text[i+1] not in punctuations and text[i+2] not in punctuations:
+            trigrams += text[i] + '_' + text[i+1] + '_' + text[i+2] + ' '
+
+    # remove the last whitespace
+    parsed_text = parsed_text[:-1] if parsed_text[-1] == ' ' else parsed_text
+    unigrams = unigrams[:-1] if unigrams[-1] == ' ' else unigrams
+    bigrams = bigrams[:-1] if bigrams[-1] == ' ' else bigrams
+    trigrams = trigrams[:-1] if trigrams[-1] == ' ' else trigrams
 
     return [parsed_text, unigrams, bigrams, trigrams]
 
@@ -149,12 +180,22 @@ if __name__ == "__main__":
                         help='comment file in json format')
     args = parser.parse_args()
     input_fn = args.filename
-    print(input_fn)
+    # print(input_fn)
+    comments = []
+    returned_list = []
     with open(input_fn) as json_file:
         lines = json_file.readlines()
         for line in lines:
-            print(line)
+            # print(line)
             data = json.loads(line)
-            print(data['body'])
-            print('**************************')
-            returned_list = sanitize(data['body'])
+            # print(data['body'])
+            comments.append(data['body'])
+            # print('**************************')
+            returned_list.append(sanitize(data['body']))
+
+    # print(returned_list)
+    print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
+    # output_file = 'comments.txt'
+    # with open(output_file, 'w') as ofile:
+    #     for comment in comments:
+    #         ofile.write(comment)

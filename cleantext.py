@@ -193,8 +193,8 @@ if __name__ == "__main__":
             # print('**************************')
             returned_list.append(sanitize(data['body']))
 
-    # print(returned_list)
-    print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
+    print(returned_list)
+    #print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # output_file = 'comments.txt'
     # with open(output_file, 'w') as ofile:
     #     for comment in comments:

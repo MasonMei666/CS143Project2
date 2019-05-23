@@ -130,7 +130,7 @@ def sanitize(text):
     print(text)
 
     # split external punctuations and remove
-    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\w+(?:[\.\,\;\?\-\+\!\#\$\^\&\*\(\)\'\"\/])|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”]+|[.!?,;:]",text)
+    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\w+(?:[\.\,\;\?\-\+\!\#\$\^\&\*\(\)\'\"\/]*\w+)|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”]+|[.!?,;:]",text)
     print('******** after spliting punctuation ***************')
     print(text)
     # convert uppercase to lower case

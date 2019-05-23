@@ -125,16 +125,14 @@ def sanitize(text):
     # print(text)
 
     # remove links and subreddits
-    text = re.sub(r'[(]?http\S+\w+[)]?|][(].*?[)]| ?www\S+\w+| ?\\', '', text)
-    # print("******** after removing links and subreddits**********")
-    # print(text)
+    text = re.sub(r'[(]?http\S+[)]?|][(].*?[)]| ?www\S+| ?\\', '', text)
+    print("******** after removing links and subreddits**********")
+    print(text)
 
     # split external punctuations and remove
-    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\w+(?:[\,\.\;\-\+\!\#\$\^\&\*\(\)\'\"\/]*\w+)|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\’\“\”\> ]+|[.!?,;:]",text)
-    
-    # print(text = re.findall(r"\w+(?:[\,\.\;\-\+\!\#\$\^\&\*\(\)\'\"\/]*\w+)",text))
-    # print('******** after spliting punctuation ***************')
-    # print(text)
+    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”]+|[.!?,;:]",text)
+    print('******** after spliting punctuation ***************')
+    print(text)
     # convert uppercase to lower case
     text = [word.lower() for word in text]
     # print(text)
@@ -167,10 +165,6 @@ def sanitize(text):
     if len(trigrams) > 0:
         trigrams = trigrams[:-1] if trigrams[-1] == ' ' else trigrams
 
-    print(parsed_text)
-    print(unigrams) #if unigrams != "" else print("unigrams is empty")
-    print(bigrams) #if bigrams != "" else print("bigrams is empty")
-    print(trigrams) #if trigrams != "" else print("trigrams is empty")
     return [parsed_text, unigrams, bigrams, trigrams]
 
 
@@ -205,12 +199,11 @@ if __name__ == "__main__":
             # print('**************************')
             returned_list.append(sanitize(data['body']))
 
-    # print(returned_list)
+    print(returned_list)
     print(sanitize('hahahawww.google.com. hahaha #&¥*100% % @500$&*'))
     print(sanitize('[Let](https://www.merriam-webster.com/dictionary/let) could mean loads of things'))
     print(sanitize("don\\'t"))
-    print(sanitize('www.abc.com......... [@12345]'))
-    print(sanitize('2,000'))
+
     #print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # output_file = 'comments.txt'
     # with open(output_file, 'w') as ofile:

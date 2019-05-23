@@ -125,12 +125,12 @@ def sanitize(text):
     # print(text)
 
     # remove links and subreddits
-    text = re.sub(r'[\(]?http\S+[\)]?|][\(].*?[\)]', '', text, re.UNICODE)
+    text = re.sub(r'[(]?http\S+[\)]?|][\(].*?[\)]', '', text, re.UNICODE)
     print("******** after removing links and subreddits**********")
     print(text)
 
     # split external punctuations and remove
-    text = re.findall(r"\$\d+(?:\,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@\🙄\👏]+|[.!?,;:]",text, re.UNICODE)
+    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@\🙄\👏\🇷🇺]+|[.!?,;:]",text, re.UNICODE)
     print('******** after spliting punctuation ***************')
     print(text)
     # convert uppercase to lower case
@@ -156,10 +156,14 @@ def sanitize(text):
             trigrams += text[i] + '_' + text[i+1] + '_' + text[i+2] + ' '
 
     # remove the last whitespace
-    parsed_text = parsed_text[:-1] if parsed_text[-1] == ' ' else parsed_text
-    unigrams = unigrams[:-1] if unigrams[-1] == ' ' else unigrams
-    bigrams = bigrams[:-1] if bigrams[-1] == ' ' else bigrams
-    trigrams = trigrams[:-1] if trigrams[-1] == ' ' else trigrams
+    if len(parsed_text) > 0:
+        parsed_text = parsed_text[:-1] if parsed_text[-1] == ' ' else parsed_text
+    if len(unigrams) > 0:
+        unigrams = unigrams[:-1] if unigrams[-1] == ' ' else unigrams
+    if len(bigrams) > 0:
+        bigrams = bigrams[:-1] if bigrams[-1] == ' ' else bigrams
+    if len(trigrams) > 0:
+        trigrams = trigrams[:-1] if trigrams[-1] == ' ' else trigrams
 
     return [parsed_text, unigrams, bigrams, trigrams]
 
@@ -196,6 +200,7 @@ if __name__ == "__main__":
             returned_list.append(sanitize(data['body']))
 
     print(returned_list)
+    # print(sanitize('www.google.com'))
 
     #print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # output_file = 'comments.txt'

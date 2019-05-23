@@ -125,12 +125,12 @@ def sanitize(text):
     # print(text)
 
     # remove links and subreddits
-    text = re.sub(r'[(]?http\S+[)]?|][(].*?[)]| ?www\S+', '', text)
+    text = re.sub(r'[(]?http\S+[)]?|][(].*?[)]| ?www\S+| ?\\', '', text)
     print("******** after removing links and subreddits**********")
     print(text)
 
     # split external punctuations and remove
-    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@\🙄\👏\🇷🇺]+|[.!?,;:]",text)
+    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”\@\🙄\👏\🇷🇺]+|[.!?,;:]",text)
     print('******** after spliting punctuation ***************')
     print(text)
     # convert uppercase to lower case
@@ -200,8 +200,9 @@ if __name__ == "__main__":
             returned_list.append(sanitize(data['body']))
 
     print(returned_list)
-    print(sanitize('hahahawww.google.com hahaha'))
+    print(sanitize('hahahawww.google.com. hahaha #&¥*100% % @500$&*'))
     print(sanitize('[Let](https://www.merriam-webster.com/dictionary/let) could mean loads of things'))
+    print(sanitize("don\\'t"))
 
     #print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # output_file = 'comments.txt'

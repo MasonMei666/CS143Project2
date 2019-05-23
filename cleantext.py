@@ -130,8 +130,9 @@ def sanitize(text):
     # print(text)
 
     # split external punctuations and remove
-    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@\🙄\👏\>🇷 🇺 ]+|[.!?,;:]",text)
-
+    text = re.findall(r"\$\d+(?:,\d+)?(?:\w)?|\w+(?:[\,\.\;\-\+\!\#\$\^\&\*\(\)\'\"\/]*\w+)|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”👏\>🇷 🇺 ]+|[.!?,;:]",text)
+    
+    # print(text = re.findall(r"\w+(?:[\,\.\;\-\+\!\#\$\^\&\*\(\)\'\"\/]*\w+)",text))
     # print('******** after spliting punctuation ***************')
     # print(text)
     # convert uppercase to lower case
@@ -209,7 +210,7 @@ if __name__ == "__main__":
     # print(sanitize('[Let](https://www.merriam-webster.com/dictionary/let) could mean loads of things'))
     # print(sanitize("don\\'t"))
     # print(sanitize('www.abc.com......... [@12345]'))
-    print(sanitize('@amp;/or'))
+    print(sanitize('@am;;;;por'))
     #print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # output_file = 'comments.txt'
     # with open(output_file, 'w') as ofile:

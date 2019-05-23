@@ -126,11 +126,13 @@ def sanitize(text):
 
     # remove links and subreddits
     text = re.sub(r'[\(]?http\S+[\)]?|][\(].*?[\)]', '', text, re.UNICODE)
-    # print(text)
+    print("******** after removing links and subreddits**********")
+    print(text)
 
     # split external punctuations and remove
-    text = re.findall(r"\$\d+(?:\,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?|\🙄(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@]+|[.!?,;:]",text, re.UNICODE)
-    # print(text)
+    text = re.findall(r"\$\d+(?:\,\d+)?(?:\w)?|\d+\.\d+|\w+(?:\.+\w+)|\w+(?:\;\w+)|\w(?:\.\w)|\w+(?:\.\”)|\w+(?:\-\w+)|\w+(?:\;\"\w)|\w+(?:\…)|\w+(?:\/\w+)(?:\/\w+)?(?:\w)|\w+(?:\(\w)|[\w'\u2014\’\“\”%\@\🙄\👏]+|[.!?,;:]",text, re.UNICODE)
+    print('******** after spliting punctuation ***************')
+    print(text)
     # convert uppercase to lower case
     text = [word.lower() for word in text]
     # print(text)
@@ -193,8 +195,8 @@ if __name__ == "__main__":
             # print('**************************')
             returned_list.append(sanitize(data['body']))
 
-    # print(returned_list)
-    print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
+    print(returned_list)
+    # print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
     # output_file = 'comments.txt'
     # with open(output_file, 'w') as ofile:
     #     for comment in comments:

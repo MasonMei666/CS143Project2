@@ -205,11 +205,11 @@ if __name__ == "__main__":
 
 
     # print(returned_list)
-    # print('*******************')
-    # print(sanitize('hahahawww.google.com. hahaha #&¥*100% % @500$&*'))
-    # print(sanitize('[Let](https://www.merriam-webster.com/dictionary/let) could mean loads of things'))
-    # print(sanitize("don\\\\\'t"))
-    # print(sanitize('a;;;;b'))
+    print('*******************')
+    print(sanitize('hahahawww.google.com. hahaha #&¥*100% % @500$&*'))
+    print(sanitize('[Let](https://www.merriam-webster.com/dictionary/let) could mean loads of things'))
+    print(sanitize("don\\\\\'t"))
+    print(sanitize('a;;;;b'))
 
 
     #print(sanitize("I'm afraid I can't explain myself, sir. Because I am not myself, you see?"))
